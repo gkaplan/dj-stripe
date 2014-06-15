@@ -91,7 +91,7 @@ if StripeWidget and setup_user_email:
             widget=forms.HiddenInput())
         stripe_token = forms.CharField(widget=forms.HiddenInput())
         plan = forms.ChoiceField(choices=PLAN_CHOICES)
-        coupon = forms.CharField(required=False)
+        coupon = forms.CharField(max_length=30,required=False)
 
         # Stripe nameless fields
         number = forms.CharField(max_length=20,
@@ -112,7 +112,7 @@ if StripeWidget and setup_user_email:
                 customer, created = Customer.get_or_create(user)
                 customer.update_card(self.cleaned_data["stripe_token"])
                 customer.subscribe(self.cleaned_data["plan"],
-                        self.cleaned_data["coupon"])
+                        self.coupon)
             except stripe.StripeError as e:
                 # handle error here
                 raise e
