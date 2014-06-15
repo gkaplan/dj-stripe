@@ -541,8 +541,8 @@ class Customer(StripeObject):
             charge_immediately=charge_immediately
         )
 
-    def subscribe(self, plan, quantity=1, trial_days=None,
-                  charge_immediately=True, prorate=PRORATION_POLICY, coupon=None):
+    def subscribe(self, plan, coupon=None, quantity=1, trial_days=None,
+                  charge_immediately=True, prorate=PRORATION_POLICY):
         cu = self.stripe_customer
         """
         Trial_days corresponds to the value specified by the selected plan

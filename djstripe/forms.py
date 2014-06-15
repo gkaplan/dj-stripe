@@ -111,8 +111,7 @@ if StripeWidget and setup_user_email:
             try:
                 customer, created = Customer.get_or_create(user)
                 customer.update_card(self.cleaned_data["stripe_token"])
-                customer.subscribe(self.cleaned_data["plan"],
-                        self.coupon)
+                customer.subscribe(self.cleaned_data["plan"], self.cleaned_data['coupon'])
             except stripe.StripeError as e:
                 # handle error here
                 raise e
