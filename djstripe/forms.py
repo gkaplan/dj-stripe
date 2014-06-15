@@ -91,7 +91,7 @@ if StripeWidget and setup_user_email:
             widget=forms.HiddenInput())
         stripe_token = forms.CharField(widget=forms.HiddenInput())
         plan = forms.ChoiceField(choices=PLAN_CHOICES)
-        coupon = forms.CharField()
+        coupon = forms.CharField(required=False)
 
         # Stripe nameless fields
         number = forms.CharField(max_length=20,
