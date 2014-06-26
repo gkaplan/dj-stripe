@@ -18,6 +18,7 @@ stripe.api_version = getattr(settings, "STRIPE_API_VERSION", "2012-11-07")
 class PlanForm(forms.Form):
 
     plan = forms.ChoiceField(choices=PLAN_CHOICES)
+    coupon = forms.CharField(max_length=128, required=False)
 
 
 class CancelSubscriptionForm(forms.Form):

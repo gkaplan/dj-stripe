@@ -178,7 +178,7 @@ class SubscribeFormView(
 
     form_class = PlanForm
     template_name = "djstripe/subscribe_form.html"
-    success_url = reverse_lazy("djstripe:history")
+    success_url = reverse_lazy("users:my_profile")
     form_valid_message = "You are now subscribed!"
 
     def post(self, request, *args, **kwargs):
@@ -192,7 +192,7 @@ class SubscribeFormView(
             try:
                 customer, created = Customer.get_or_create(self.request.user)
                 customer.update_card(self.request.POST.get("stripe_token"))
-                customer.subscribe(form.cleaned_data["plan"])
+                customer.subscribe(form.cleaned_data["plan"], form.cleaned_data["coupon"])
             except stripe.StripeError as e:
                 # add form error here
                 self.error = e.args[0]
