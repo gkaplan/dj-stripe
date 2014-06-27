@@ -192,7 +192,7 @@ class SubscribeFormView(
             try:
                 customer, created = Customer.get_or_create(self.request.user)
                 customer.update_card(self.request.POST.get("stripe_token"))
-                customer.subscribe(form.cleaned_data["plan"], form.cleaned_data["coupon"])
+                customer.subscribe(form.cleaned_data["plan"], form.cleaned_data.get("coupon", None))
             except stripe.StripeError as e:
                 # add form error here
                 self.error = e.args[0]
